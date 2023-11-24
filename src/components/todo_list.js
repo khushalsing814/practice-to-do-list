@@ -1,6 +1,22 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 function Todo_list() {
+    const [apiData,setApidata] = useState(null);
+
+    const fetchapi = useCallback(async()=>{
+        try{
+            const result = await fetch('http://localhost:5000/users');
+            const data = await result.json();
+            console.log(data)
+            setApidata(data)
+        }catch(err){
+              console.log(err)
+        }
+    },[apiData])
+
+    useEffect(()=>{
+        fetchapi();
+    },[])
     return (
         <>
             <div className='container'>
